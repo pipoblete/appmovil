@@ -24,7 +24,7 @@ export class RegisterPage {
 
   async register() {
     if (this.username && this.password) {
-      if (this.password.length >= 3 && this.password.length <= 8) {
+      if (this.password.length >= 3 && this.password.length <= 8 && this.isNumeric(this.password)) {
         const alert = await this.alertController.create({
           header: 'Registro exitoso',
           message: '¡Su cuenta ha sido registrada!',
@@ -36,7 +36,7 @@ export class RegisterPage {
       } else {
         const alert = await this.alertController.create({
           header: 'Error',
-          message: 'La contraseña debe tener entre 3 y 8 caracteres',
+          message: 'La contraseña debe tener entre 3 y 8 números.',
           buttons: ['OK']
         });
   
@@ -53,4 +53,7 @@ export class RegisterPage {
     }
   }
   
+  isNumeric(value: string): boolean {
+    return /^\d+$/.test(value);
+  }
 }

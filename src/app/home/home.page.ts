@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef} from '@angular/core';
 import { UserService } from '../user.service';
 import { AlertController } from '@ionic/angular';
 
@@ -14,8 +14,10 @@ export class HomePage {
     lastname: string = '';
     educationLevel: string = '';
     fecha: string = '';
-  
-    constructor(private userService: UserService, private alertController: AlertController) {}
+    isAnimated: boolean = false;
+
+
+    constructor(private userService: UserService, private alertController: AlertController, private renderer:  Renderer2, private el: ElementRef) {}
 
     ;
   
@@ -29,7 +31,11 @@ export class HomePage {
       this.name = '';
       this.lastname = '';
       this.educationLevel = '';
-      
+      this.isAnimated = true;
+
+      setTimeout(() => {
+        this.isAnimated = false;
+      }, 1000);
     }
 
     async mostrarDatos() {
