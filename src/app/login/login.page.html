@@ -1,32 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Appsita</ion-title>
+    <ion-title id="titulo">Appsita</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button id="open-modal" expand="block">Iniciar sesión</ion-button>
-  <p>{{ message }}</p>
+  <ion-button id="open-modal" expand="block" shape="round" class="btn">Iniciar sesión</ion-button>
+  <ion-button id="open-modal2" expand="block" (click)="registro()" shape="round" class="btn2">Registrarse</ion-button>
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Inicio de sesión</ion-title>
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/login" (click)="cancel()"></ion-back-button>
+          </ion-buttons>
+          <ion-title id="inicio-sesion">Inicio de sesión</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
 
         <ion-item>
-          <ion-label position="stacked">Correo electrónico</ion-label>
-          <ion-input type="email" placeholder="Tu correo electrónico" [(ngModel)]="email"></ion-input>
+          <ion-label position="stacked">Usuario</ion-label>
+          <ion-input type="username" placeholder="Tu nombre de usuario" [(ngModel)]="username"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input type="password" placeholder="Tu contraseña" [(ngModel)]="password"></ion-input>
+          <ion-input type="password" placeholder="0000000" [(ngModel)]="password"></ion-input>
         </ion-item>
 
-        <ion-button expand="full" (click)="login()">Iniciar sesión</ion-button>
+        <ion-button expand="full" (click)="login()" shape="round">Iniciar sesión</ion-button>
       </ion-content>
     </ng-template>
   </ion-modal>

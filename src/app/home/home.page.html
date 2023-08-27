@@ -1,8 +1,8 @@
-<ion-header [translucent]="true">
+
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Inicio
-    </ion-title>
+    <ion-back-button defaultHref="/login"></ion-back-button>
+    <ion-title id="titulo">Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,14 +14,40 @@
   </ion-header>
 
   <ion-card>
-    <img alt="lobo" src="https://i.pinimg.com/736x/c0/b1/c4/c0b1c4a8b83253a97c96fc99297e7e18.jpg" />
     <ion-card-header>
-      <ion-card-title>Bienvenido</ion-card-title>
-      <ion-card-subtitle>Subtitulo</ion-card-subtitle>
+      <ion-card-title>Bienvenido, {{loggedInUser}} </ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
-      Hola
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input id="input" type="text" placeholder="Ingrese su nombre" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellido</ion-label>
+        <ion-input id="input" type="text" placeholder="Ingrese su apellido" [(ngModel)]="lastname"></ion-input>
+      </ion-item>
+
+      <ion-list>
+        <ion-item>
+          <ion-select aria-label="nivel" placeholder="Nivel educacional" [(ngModel)]="educationLevel">
+            <ion-select-option value="Ens. Básica">Enseñanza básica</ion-select-option>
+            <ion-select-option value="Ens. Media">Enseñanza media</ion-select-option>
+            <ion-select-option value="Ens. Superior CFT">Enseñanza superior en CFT</ion-select-option>
+            <ion-select-option value="Ens. Superior IP">Enseñanza superior en Instituto Profesional</ion-select-option>
+            <ion-select-option value="Ens. Superior Universidad">Enseñanza superior en Universidad</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <br>
+      <p>Fecha de nacimiento</p>
+      <br>
+      <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
+      
+      <ion-button (click)="limpiarCampos()" expand="full" shape="round">Limpiar</ion-button>
+      <ion-button (click)="mostrarDatos()" expand="full" shape="round">Mostrar datos</ion-button>
+
     </ion-card-content>
   </ion-card>
 

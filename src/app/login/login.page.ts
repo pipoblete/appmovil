@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,26 @@ import { OverlayEventDetail } from '@ionic/core';
 export class LoginPage {
   @ViewChild(IonModal) modal!: IonModal;
 
-  email: string = '';
+  username: string = '';
   password: string = '';
   message: string = '';
 
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController, private userService: UserService) {}
+
+  registro() {
+    this.router.navigate(['/register']);
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
 
   async login() {
-    if (this.email === 'milo@example.com' && this.password === 'contraseña') {
+    if (this.username === 'milo' && this.password === '1234') {
       this.router.navigate(['/home']); 
-      this.modal.dismiss(this.email, 'confirm');
+      this.modal.dismiss(this.username, 'confirm');
+      const loggedInUsername = this.username;
+      this.userService.setLoggedInUser(loggedInUsername);
     } else {
       this.modal.dismiss(null, 'cancel');
       await this.presentAlert('Credenciales incorrectas');
@@ -44,4 +55,6 @@ export class LoginPage {
       this.message = `Hello, ${ev.detail.data}!`;
     }
   }
+
+
 }
