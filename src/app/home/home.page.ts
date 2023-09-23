@@ -14,7 +14,18 @@ export class HomePage {
   educationLevel: string = '';
   fecha: string = '';
   isAnimated: boolean = false;
-  segmentValue: string = 'default'; // Valor predeterminado para el segmento
+  segmentValue: string = 'default';
+
+  empresa: string = '';
+  anioInicio: string = '';
+  trabajaActualmente: boolean = false;
+  anioTermino: string = '';
+  cargo: string = '';
+
+  nombreCertificado: string = '';
+  fechaObtencion: string = '';
+  certificadoVence: boolean = false;
+  fechaVencimiento: string = '';
 
   constructor(
     private userService: UserService,
@@ -32,6 +43,15 @@ export class HomePage {
     this.lastname = '';
     this.educationLevel = '';
     this.isAnimated = true;
+    this.empresa = '';
+    this.anioInicio = '';
+    this.trabajaActualmente = false;
+    this.anioTermino = '';
+    this.cargo = '';
+    this.nombreCertificado = '';
+    this.fechaObtencion = '';
+    this.certificadoVence = false;
+    this.fechaVencimiento = '';
 
     setTimeout(() => {
       this.isAnimated = false;
@@ -41,8 +61,7 @@ export class HomePage {
   async mostrarDatos() {
     const mensaje = `Nombre: ${this.name}  ${this.lastname}
       || Nivel de educación: ${this.educationLevel}
-      || Fecha: ${this.fecha}
-      || Segmento seleccionado: ${this.segmentValue}`;
+      || Fecha: ${this.fecha}`;
 
     const alert = await this.alertController.create({
       header: 'Datos Ingresados',
@@ -51,5 +70,40 @@ export class HomePage {
     });
 
     await alert.present();
+  }
+
+  async mostrarDatosLaborales() {
+    const experienciaLaboral = `
+      Empresa: ${this.empresa}
+      Año de Inicio: ${this.anioInicio}
+      Actualmente trabaja aquí: ${this.trabajaActualmente ? 'Sí' : 'No'}
+      Año de Término: ${this.trabajaActualmente ? 'N/A' : this.anioTermino}
+      Cargo: ${this.cargo}
+    `;
+
+    const alert2 = await this.alertController.create({
+      header: 'Experiencia Laboral',
+      message: experienciaLaboral,
+      buttons: ['Cerrar'],
+    });
+
+    await alert2.present();
+  }
+
+  async mostrarDatosCertificados() {
+    const certificados = `
+      Nombre del Certificado: ${this.nombreCertificado}
+      Fecha de Obtención: ${this.fechaObtencion}
+      Certificado Vence: ${this.certificadoVence ? 'Sí' : 'No'}
+      Fecha de Vencimiento: ${this.certificadoVence ? this.fechaVencimiento : 'N/A'}
+    `;
+
+    const alert3 = await this.alertController.create({
+      header: 'Certificados',
+      message: certificados,
+      buttons: ['Cerrar'],
+    });
+
+    await alert3.present();
   }
 }
