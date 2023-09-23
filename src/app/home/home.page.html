@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-back-button defaultHref="/login"></ion-back-button>
+    <ion-back-button defaultHref="/login" class="secondary"></ion-back-button>
     <ion-title id="titulo">Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -45,8 +45,8 @@
       <br>
       <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
       
-      <ion-button (click)="limpiarCampos()" expand="full" shape="round">Limpiar</ion-button>
-      <ion-button (click)="mostrarDatos()" expand="full" shape="round">Mostrar datos</ion-button>
+      <ion-button (click)="limpiarCampos()" expand="full" shape="round" color="success">Limpiar</ion-button>
+      <ion-button (click)="mostrarDatos()" expand="full" shape="round" color="secondary">Mostrar datos</ion-button>
 
     </ion-card-content>
   </ion-card>

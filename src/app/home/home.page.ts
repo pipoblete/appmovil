@@ -39,8 +39,7 @@ export class HomePage {
     }
 
     async mostrarDatos() {
-      const mensaje = `Nombre: ${this.name}
-      || Apellido: ${this.lastname}
+      const mensaje = `Nombre: ${this.name}  ${this.lastname}
       || Nivel de educación: ${this.educationLevel}
       || Fecha: ${this.fecha}`;	
 

@@ -27,17 +27,27 @@ export class LoginPage {
   }
 
   async login() {
-    if (this.username === 'milo' && this.password === '1234') {
-      this.router.navigate(['/home']); 
-      this.modal.dismiss(this.username, 'confirm');
-      const loggedInUsername = this.username;
-      this.userService.setLoggedInUser(loggedInUsername);
+    if (this.username && this.password) {
+      if (this.password.length >= 3 && this.password.length <= 8 && this.isNumeric(this.password)) {
+        this.router.navigate(['/home']); 
+        this.modal.dismiss(this.username, 'confirm');
+        const loggedInUsername = this.username;
+        this.userService.setLoggedInUser(loggedInUsername);
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'La contraseña debe tener entre 3 y 8 números.',
+          buttons: ['OK']
+        
+        });
+
+        await alert.present();
+      }
     } else {
       this.modal.dismiss(null, 'cancel');
       await this.presentAlert('Credenciales incorrectas');
-      
-    }
   }
+}
 
   async presentAlert(message: string) {
     const alert = await this.alertController.create({
@@ -56,5 +66,7 @@ export class LoginPage {
     }
   }
 
-
+  isNumeric(value: string): boolean {
+    return /^\d+$/.test(value);
+  }
 }

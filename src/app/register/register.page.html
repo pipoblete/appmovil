@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/login"></ion-back-button>
+      <ion-back-button defaultHref="/login" color="secondary"></ion-back-button>
     </ion-buttons>
     <ion-title>Registro</ion-title>
   </ion-toolbar>
@@ -18,5 +18,5 @@
     <ion-input type="password" placeholder="Ingrese su contraseña" [(ngModel)]="password"></ion-input>
   </ion-item>
 
-  <ion-button expand="full" (click)="register()" shape="round">Registrarse</ion-button>
+  <ion-button expand="full" (click)="register()" shape="round" color="success">Registrarse</ion-button>
 </ion-content>
