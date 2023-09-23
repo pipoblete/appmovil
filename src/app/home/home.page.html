@@ -5,28 +5,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
   <!-- Segmentos -->
   <ion-segment [(ngModel)]="segmentValue">
-    <ion-segment-button value="default">
-      <ion-label>Default</ion-label>
-    </ion-segment-button>
     <ion-segment-button value="segment1">
-      <ion-label>Segment 1</ion-label>
+      <ion-label>Datos personales</ion-label>
     </ion-segment-button>
     <ion-segment-button value="segment2">
-      <ion-label>Segment 2</ion-label>
+      <ion-label>Experiencia Laboral</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment3">
+      <ion-label>Certificaciones</ion-label>
     </ion-segment-button>
   </ion-segment>
 
   <!-- Contenido del primer segmento -->
-  <ion-card *ngIf="segmentValue === 'default'">
+  <ion-card *ngIf="segmentValue === 'segment1'">
     <ion-card-header>
       <ion-card-title>Bienvenido, {{ loggedInUser }}</ion-card-title>
     </ion-card-header>
@@ -64,4 +59,70 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card *ngIf="segmentValue === 'segment2'">
+    <ion-card-header>
+      <ion-card-title>Experiencia Laboral</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Empresa</ion-label>
+        <ion-input [class.anim]="isAnimated" id="input" type="text" placeholder="Ingrese el nombre de la empresa" [(ngModel)]="empresa"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Año de Inicio</ion-label>
+        <ion-input [class.anim]="isAnimated" id="input" type="text" placeholder="Año de inicio" [(ngModel)]="anioInicio"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Actualmente trabaja aquí</ion-label>
+        <ion-checkbox [(ngModel)]="trabajaActualmente"></ion-checkbox>
+      </ion-item>
+  
+      <ion-item *ngIf="!trabajaActualmente">
+        <ion-label position="stacked">Año de Término</ion-label>
+        <ion-input [class.anim]="isAnimated" id="input" type="text" placeholder="Año de término" [(ngModel)]="anioTermino"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Cargo</ion-label>
+        <ion-input [class.anim]="isAnimated" id="input" type="text" placeholder="Ingrese su cargo" [(ngModel)]="cargo"></ion-input>
+      </ion-item>
+  
+      <ion-button (click)="limpiarCampos()" expand="full" shape="round" color="success">Limpiar</ion-button>
+      <ion-button (click)="mostrarDatosLaborales()" expand="full" shape="round" color="secondary">Mostrar datos</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="segmentValue === 'segment3'">
+    <ion-card-header>
+      <ion-card-title>Certificaciones</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Nombre Certificado</ion-label>
+        <ion-input [class.anim]="isAnimated" id="input" type="text" placeholder="Ingrese el nombre del certificado" [(ngModel)]="nombreCertificado"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Fecha de Obtención</ion-label>
+        <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" [(ngModel)]="fechaObtencion"></ion-datetime>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>El certificado vence</ion-label>
+        <ion-checkbox [(ngModel)]="certificadoVence"></ion-checkbox>
+      </ion-item>
+  
+      <ion-item *ngIf="certificadoVence">
+        <ion-label position="stacked">Fecha de Vencimiento</ion-label>
+        <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" [(ngModel)]="fechaVencimiento"></ion-datetime>
+      </ion-item>
+  
+      <ion-button (click)="limpiarCampos()" expand="full" shape="round" color="success">Limpiar</ion-button>
+      <ion-button (click)="mostrarDatosCertificados()" expand="full" shape="round" color="secondary">Mostrar datos</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
