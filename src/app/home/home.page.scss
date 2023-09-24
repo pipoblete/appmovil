@@ -1,7 +1,7 @@
 
 ion-back-button{
   margin-right: 80%;
-  font-family: cursive;
+
 }
 
 p{
@@ -12,7 +12,6 @@ p{
 ion-title {
   animation: titleAnimation 3s;
   font-size: 28px;
-  font-family: cursive;
   font-weight: bold;
   text-align: center;
   margin-top: 5px;
@@ -49,19 +48,7 @@ ion-title {
 }
 
 ion-card{
-  font-family: cursive;
-  background-color: transparent;
-  ion-item{
-    font-family: cursive;
 
-  }
-  ion-button{
-    font-family: cursive;
-  }
-  ion-label{
-    font-family: cursive;
-  }
-  ion-input{
-    font-family: cursive;
-  }
+  background-color: transparent;
+  
 }
