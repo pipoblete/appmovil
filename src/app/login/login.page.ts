@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { UserService } from 'src/app/user.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginPage {
   password: string = '';
   message: string = '';
 
-  constructor(private router: Router, private alertController: AlertController, private userService: UserService) {}
+  constructor(private router: Router, private alertController: AlertController, private userService: UserService, private storage: Storage) {}
 
   registro() {
     this.router.navigate(['/register']);
@@ -38,16 +39,15 @@ export class LoginPage {
           header: 'Error',
           message: 'La contraseña debe tener entre 3 y 8 números.',
           buttons: ['OK']
-        
         });
-
+  
         await alert.present();
       }
     } else {
       this.modal.dismiss(null, 'cancel');
       await this.presentAlert('Credenciales incorrectas');
+    }
   }
-}
 
   async presentAlert(message: string) {
     const alert = await this.alertController.create({
@@ -69,4 +69,16 @@ export class LoginPage {
   isNumeric(value: string): boolean {
     return /^\d+$/.test(value);
   }
+
+        
+  ngOnInit() {
+    this.storage.get('loggedInUser').then((username) => {
+      if (username) {
+        this.userService.setLoggedInUser(username);
+      }
+    });
+  }
+  
+  
+  
 }

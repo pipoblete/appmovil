@@ -1,6 +1,7 @@
 import { Component, Renderer2, ElementRef } from '@angular/core';
 import { UserService } from '../user.service';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -31,11 +32,14 @@ export class HomePage {
     private userService: UserService,
     private alertController: AlertController,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private storage: Storage
   ) {}
 
   ngOnInit() {
-    this.loggedInUser = this.userService.getLoggedInUser();
+    this.storage.get('loggedInUser').then((user) => {
+      this.loggedInUser = user;
+    });
   }
 
   limpiarCampos() {
@@ -70,6 +74,12 @@ export class HomePage {
     });
 
     await alert.present();
+
+    this.storage.set('name', this.name);
+    this.storage.set('lastname', this.lastname);
+    this.storage.set('educationLevel', this.educationLevel);
+    
+    
   }
 
   async mostrarDatosLaborales() {
@@ -88,6 +98,12 @@ export class HomePage {
     });
 
     await alert2.present();
+
+    this.storage.set('empresa', this.empresa);
+    this.storage.set('anioInicio', this.anioInicio);
+    this.storage.set('trabajaActualmente', this.trabajaActualmente);
+    this.storage.set('anioTermino', this.anioTermino);
+    this.storage.set('cargo', this.cargo);
   }
 
   async mostrarDatosCertificados() {
@@ -105,5 +121,10 @@ export class HomePage {
     });
 
     await alert3.present();
+
+    this.storage.set('nombreCertificado', this.nombreCertificado);
+    this.storage.set('fechaObtencion', this.fechaObtencion);
+    this.storage.set('certificadoVence', this.certificadoVence);
+    this.storage.set('fechaVencimiento', this.fechaVencimiento);
   }
 }
