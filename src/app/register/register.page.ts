@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular';
-
 
 
 @Component({
@@ -18,7 +16,7 @@ export class RegisterPage {
   message: string = '';
   username: string = '';
 
-  constructor(private router: Router, private alertController: AlertController, private navCtrl: NavController, private storage: Storage) { }
+  constructor(private router: Router, private alertController: AlertController, private navCtrl: NavController) { }
 
   goBack() {
     this.navCtrl.back();
@@ -27,7 +25,6 @@ export class RegisterPage {
   async register() {
     if (this.username && this.password) {
       if (this.password.length >= 3 && this.password.length <= 8 && this.isNumeric(this.password)) {
-        await this.storage.set('username', this.username);
         const alert = await this.alertController.create({
           header: 'Registro exitoso',
           message: '¡Su cuenta ha sido registrada!',
@@ -59,11 +56,4 @@ export class RegisterPage {
   isNumeric(value: string): boolean {
     return /^\d+$/.test(value);
   }
-
-  ngOnInit() {
-    this.storage.get('username').then((username) => {
-      this.username = username;
-    });
-  }
-  
 }
