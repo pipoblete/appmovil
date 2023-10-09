@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private loggedInUser: string = ''; 
+  private loggedInUserKey: string = 'loggedInUser'; // Clave para el usuario conectado en Ionic Storage
 
-  
-  setLoggedInUser(username: string) {
-    this.loggedInUser = username;
+  constructor(private storage: Storage) {}
+
+  async setLoggedInUser(username: string) {
+    await this.storage.set(this.loggedInUserKey, username);
   }
 
-
-  getLoggedInUser(): string {
-    return this.loggedInUser;
+  async getLoggedInUser(): Promise<string> {
+    return await this.storage.get(this.loggedInUserKey) || ''; // Si no se encuentra, devuelve una cadena vacía
   }
 }

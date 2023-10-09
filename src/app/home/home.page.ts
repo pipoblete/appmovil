@@ -1,6 +1,7 @@
 import { Component, Renderer2, ElementRef } from '@angular/core';
 import { UserService } from '../user.service';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular'; // Importa Ionic Storage
 
 @Component({
   selector: 'app-home',
@@ -31,14 +32,16 @@ export class HomePage {
     private userService: UserService,
     private alertController: AlertController,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private storage: Storage // Inyecta Ionic Storage
   ) {}
 
-  ngOnInit() {
-    this.loggedInUser = this.userService.getLoggedInUser();
+  async ngOnInit() {
+    await this.storage.create(); // Crea el almacenamiento
+    this.loggedInUser = await this.userService.getLoggedInUser();
   }
 
-  limpiarCampos() {
+  async limpiarCampos() {
     this.name = '';
     this.lastname = '';
     this.educationLevel = '';
@@ -52,6 +55,8 @@ export class HomePage {
     this.fechaObtencion = '';
     this.certificadoVence = false;
     this.fechaVencimiento = '';
+
+    await this.storage.clear(); // Limpia todos los datos almacenados en Ionic Storage
 
     setTimeout(() => {
       this.isAnimated = false;

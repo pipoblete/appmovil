@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { NavController } from '@ionic/angular';
-
+import { Storage } from '@ionic/storage-angular'; // Importa Ionic Storage
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,14 @@ export class RegisterPage {
   message: string = '';
   username: string = '';
 
-  constructor(private router: Router, private alertController: AlertController, private navCtrl: NavController) { }
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private navCtrl: NavController,
+    private storage: Storage // Inyecta Ionic Storage
+  ) {
+    this.storage.create(); // Crea el almacenamiento
+  }
 
   goBack() {
     this.navCtrl.back();
@@ -25,12 +32,15 @@ export class RegisterPage {
   async register() {
     if (this.username && this.password) {
       if (this.password.length >= 3 && this.password.length <= 8 && this.isNumeric(this.password)) {
+        // Almacena el nombre de usuario en Ionic Storage
+        await this.storage.set('registeredUser', this.username);
+
         const alert = await this.alertController.create({
           header: 'Registro exitoso',
           message: '¡Su cuenta ha sido registrada!',
           buttons: ['OK']
         });
-  
+
         await alert.present();
         this.router.navigate(['/login']);
       } else {
@@ -39,7 +49,7 @@ export class RegisterPage {
           message: 'La contraseña debe tener entre 3 y 8 números.',
           buttons: ['OK']
         });
-  
+
         await alert.present();
       }
     } else {
@@ -48,11 +58,11 @@ export class RegisterPage {
         message: 'Por favor complete todos los campos',
         buttons: ['OK']
       });
-  
+
       await alert.present();
     }
   }
-  
+
   isNumeric(value: string): boolean {
     return /^\d+$/.test(value);
   }
